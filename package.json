@@ -1,0 +1,28 @@
+{
+  "name": "nextjs-crash-course-fauna-swr-react-hook-form",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@auth0/nextjs-auth0": "1.0.0",
+    "faunadb": "^4.4.1",
+    "next": "^11.1.2",
+    "nprogress": "^0.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.14.2",
+    "swr": "^1.0.0"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^3.0.0",
+    "@types/nprogress": "^0.2.0",
+    "@types/react": "^17.0.20",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^1.9.6",
+    "typescript": "^4.4.2"
+  }
+}
