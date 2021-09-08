@@ -5,7 +5,7 @@
 Project build and improved upon a course from James Q Quick from his youtube tutorial(https://www.youtube.com/watch?v=1GpbdX8aJCU&ab_channel=JamesQQuick).
 Project is done with technologies like Next.js, Auth0, FaunDB with tailwind css
 
-![Working Demo](./images/cover.jpg)
+![Working Demo](./images/cover.PNG)
 
 Step 1 : Clone the repository
 
