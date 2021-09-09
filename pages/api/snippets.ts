@@ -1,10 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSnippets } from '@/utils/Fauna';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
     return res.status(405);
   }
@@ -16,4 +13,6 @@ export default async function handler(
     console.error(err);
     res.status(500).json({ msg: 'Something went wrong.' });
   }
-}
+};
+
+export default handler;

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
-import { getSnippetsByUser } from '@/utils/Fauna';
+import { useRouter } from 'next/router';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
+import { getSnippetsByLanguage } from '@/utils/Fauna';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse) => {
@@ -8,11 +9,8 @@ const handler = withApiAuthRequired(
       return res.status(405).json({ msg: 'Method not allowed' });
     }
 
-    const session = getSession(req, res);
-    const userId = session.user.sub;
-
     try {
-      const snippets = await getSnippetsByUser(userId);
+      const snippets = await getSnippetsByLanguage(req.query);
       return res.status(200).json(snippets);
     } catch (err) {
       console.error(err);
