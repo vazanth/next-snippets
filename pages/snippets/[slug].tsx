@@ -1,16 +1,22 @@
 import Snippet from '@/components/Snippet';
+import { useRouter } from 'next/router';
 import Header from '@/components/Header';
 import useSWR from 'swr';
-import { withPageAuthRequired, getSession } from '@auth0/nextjs-auth0';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { GetServerSideProps } from 'next';
-import { getSnippetsByUser } from '@/utils/Fauna';
+import { getSnippetsByLanguage } from '@/utils/Fauna';
 
-function mysnippets({ fallback: { snippet } }: any) {
+const Language = ({ fallback: { snippet } }: any) => {
+  const router = useRouter();
   const fetcher = (args) => fetch(args).then((res) => res.json());
 
-  const { data: snippets } = useSWR('/api/mysnippets', fetcher, {
-    fallbackData: snippet,
-  });
+  const { data: snippets } = useSWR(
+    `/api/snippets/${router.query.slug}`,
+    fetcher,
+    {
+      fallbackData: snippet,
+    }
+  );
 
   return (
     <div>
@@ -28,14 +34,14 @@ function mysnippets({ fallback: { snippet } }: any) {
       </main>
     </div>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
-  async getServerSideProps({ req, res }) {
+  async getServerSideProps({ params }) {
+    console.log('params', params.slug);
+
     try {
-      const session = getSession(req, res);
-      const userId = session.user.sub;
-      const snippet = await getSnippetsByUser(userId);
+      const snippet = await getSnippetsByLanguage(params.slug);
       return {
         props: {
           fallback: { snippet },
@@ -48,4 +54,4 @@ export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
   },
 });
 
-export default mysnippets;
+export default Language;
